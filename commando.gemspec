@@ -10,6 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ['collier@apartmentlist.com']
 
   spec.summary       = 'A simple command line interface builder.'
+  spec.homepage      = 'https://github.com/tcollier/commando'
   spec.license       = 'MIT'
 
   spec.files         = `git ls-files -z`.split("\x0").reject do |f|
