@@ -41,19 +41,19 @@ module Commando
     end
 
     def load_history
-      if Commando.config.history_file
-        File.readlines(Commando.config.history_file).each do |line|
+      if history_file && File.exists?(history_file)
+        File.readlines(history_file).each do |line|
           Readline::HISTORY.push(line.chomp)
         end
       end
     end
 
     def save_history(line)
-      if Commando.config.history_file
-        File.open(Commando.config.history_file, 'a') do |f|
-          f.puts line
-        end
-      end
+      File.open(history_file, 'a') { |f| f.puts(line) } if history_file
+    end
+
+    def history_file
+      Commando.config.history_file
     end
   end
 
