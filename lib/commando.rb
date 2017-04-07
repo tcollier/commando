@@ -26,14 +26,14 @@ module Commando
     output.puts config.greeting
 
     io = IOHandler.new(output: output)
+    interpreter = Interpreter.new(output: output)
 
     loop do
       begin
         if line = io.readline
           # When the user enters a non-empty string, pass the line to the
           # interpreter and handle the command.
-          interpreter = Interpreter.new(input: line, output: output)
-          interpreter.interpret
+          interpreter.interpret(line)
         end
       rescue ValidationError => error
         output.puts "Error: #{error}"

@@ -2,7 +2,7 @@ require_relative '../../lib/commando/interpreter'
 
 module Commando
   RSpec.describe Interpreter do
-    subject { Interpreter.new(input: 'foo bar baz', output: output) }
+    subject { Interpreter.new(output: output) }
 
     let(:output) { instance_double(IO) }
 
@@ -18,7 +18,7 @@ module Commando
           message =
             'Unrecognized command: foo. Type "help" for a list of valid commands'
           expect(output).to receive(:puts).with(message)
-          subject.interpret
+          subject.interpret('foo bar baz')
         end
       end
 
@@ -28,7 +28,7 @@ module Commando
         it 'prints a useful message' do
           expect(action).to receive(:perform)
             .with(args: %w[bar baz], output: output)
-          subject.interpret
+            subject.interpret('foo bar baz')
         end
       end
     end

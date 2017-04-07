@@ -1,16 +1,17 @@
 module Commando
   # Interpret a single command from the user.
   class Interpreter
-    # @param input [String] the entire command line string.
     # @param output [IO] the stream any actions should write messages to.
-    def initialize(input:, output: $stdout)
-      @args = input.split(' ')
-      @command = @args.shift
+    def initialize(output: $stdout)
       @output = output
     end
 
     # Performs the action (if valid) for the given input command line
-    def interpret
+    #
+    # @param line [String] the entire command line string.
+    def interpret(line)
+      args = line.split(' ')
+      command = args.shift
       action = Commando.config.lookup(command)
 
       if action.nil?
@@ -22,7 +23,7 @@ module Commando
 
     private
 
-    attr_reader :command, :args, :output
+    attr_reader :output
   end
 
   private_constant :Interpreter
