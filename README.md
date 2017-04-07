@@ -2,6 +2,11 @@
 
 A command line interface builder with Readline support
 
+## Versions
+
+* `0.1.0` - Initial release
+* `0.1.1` - Alphabetize commands printed via `help`
+
 ## Installation
 
 Add this line to your application's Gemfile:
