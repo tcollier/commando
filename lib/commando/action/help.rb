@@ -6,7 +6,8 @@ module Commando
     module Help
       def self.perform(args:, output: $stdout)
         output.puts "Valid commands are"
-        Commando.config.each_action do |command, description|
+        descriptions = Commando.config.descriptions
+        descriptions.sort_by { |cmd, _| cmd }.each do |command, description|
           output.puts "  * #{command} - #{description}"
         end
       end

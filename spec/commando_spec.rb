@@ -29,23 +29,19 @@ RSpec.describe Commando do
     end
   end
 
-  describe '.each_description' do
-    it 'iterates through each configured action' do
-      iterated = {}
-
+  describe '.descriptions' do
+    it 'descriptions for each configured action' do
       Commando.configure do |config|
         config.register('foo', TestAction1, 'test action 1')
         config.register('bar', TestAction2, 'test action 2')
       end
 
-      Commando.config.each_action do |key, value|
-        iterated[key] = value
-      end
+      descriptions = Commando.config.descriptions
 
-      expect(iterated).to have_key('foo')
-      expect(iterated['foo']).to eq('test action 1')
-      expect(iterated).to have_key('bar')
-      expect(iterated['bar']).to eq('test action 2')
+      expect(descriptions).to have_key('foo')
+      expect(descriptions['foo']).to eq('test action 1')
+      expect(descriptions).to have_key('bar')
+      expect(descriptions['bar']).to eq('test action 2')
     end
   end
 end

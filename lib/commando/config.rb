@@ -53,11 +53,10 @@ module Commando
       mapping[command]&.action_class
     end
 
-    # Iterate through each of the registered commands, yielding the command
-    # string and the description
-    def each_action(&block)
-      mapping.each do |command, action_config|
-        yield command, action_config.description
+    # @return [Hash<String, String>] a map of commands to their descriptions
+    def descriptions
+      mapping.map.with_object({}) do |(command, action_config), hash|
+        hash[command] = action_config.description
       end
     end
 
