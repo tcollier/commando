@@ -6,6 +6,7 @@ A command line interface builder with Readline support
 
 * `0.1.0` - Initial release
 * `0.1.1` - Alphabetize commands printed via `help`
+* `0.1.2` - Remove empty lines from history
 
 ## Installation
 
