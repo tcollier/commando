@@ -1,6 +1,8 @@
 # Commando
 
-A command line interface builder with Readline support
+Boxers? Briefs? Commando!
+
+_A command line interface builder with Readline support_
 
 ## Versions
 
@@ -57,7 +59,7 @@ To support a new command, you must register it with
 
 #### Action role
 
-The `Action role` responds to `perform(args, output:)`, where
+The `Action` role responds to `perform(args, output:)`, where
 
 * `args` [`Array<String>`] - the list of the extra words that follow the command
 (e.g. if the user types `addfriend mary jane`, then the args are `['mary', 'jane']`).
