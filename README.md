@@ -7,6 +7,7 @@ A command line interface builder with Readline support
 * `0.1.0` - Initial release
 * `0.1.1` - Alphabetize commands printed via `help`
 * `0.1.2` - Remove empty lines from history
+* `0.2.0` - Persist history across CLI sessions
 
 ## Installation
 
@@ -31,9 +32,16 @@ of available commands to use.
 
 ```ruby
 Commando.configure do |config|
+  # The greeting to print when the CLI is started
   config.greeting = 'Welcome to my CLI. Type "help" for a list of commands'
+
+  # The prompt to print every time a new command is desired
   config.prompt = 'my-app> '
 
+  # An optional file where command line history is stored across sessions
+  config.history_file = '/tmp/.commando_history'
+
+  # Register multiple commands
   config.register 'addfriend', MyApp::AddFriend, 'Adds a friend to your network'
 end
 ```
