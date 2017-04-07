@@ -4,6 +4,7 @@ require_relative 'action/quit'
 
 module Commando
   ActionConfig = Struct.new(:action_class, :description)
+  private_constant :ActionConfig
 
   # Manage the configuration for the actions available to the CLI
   class Config
