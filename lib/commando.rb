@@ -41,7 +41,11 @@ module Commando
         # case we want to exit
         output.puts
         break
-      elsif line.strip != ''
+      elsif line.strip == ''
+        # If the user just hit enter without typing a command, remove that line
+        # from history.
+        Readline::HISTORY.pop
+      else
         # When the user enters a non-empty string, pass the line to the
         # interpreter and handle the command.
         #
