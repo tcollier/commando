@@ -8,6 +8,7 @@ A command line interface builder with Readline support
 * `0.1.1` - Alphabetize commands printed via `help`
 * `0.1.2` - Remove empty lines from history
 * `0.2.0` - Persist history across CLI sessions
+* `0.2.1` - Fix bug when history file doesn't exist
 
 ## Installation
 
