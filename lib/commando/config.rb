@@ -12,6 +12,8 @@ module Commando
     DEFAULT_GREETING =
       'Welcome to the commando interface. Type "help" to list available commands'
 
+    attr_accessor :history_file
+    
     attr_writer :prompt, :greeting
 
     def initialize

@@ -1,15 +1,9 @@
 require_relative 'commando/config'
 require_relative 'commando/interpreter'
+require_relative 'commando/io_handler'
 require_relative 'commando/quit_exception'
 require_relative 'commando/validation_error'
 require_relative 'commando/version'
-
-require 'readline'
-# Configure readline
-comp = proc { |s| Commando.config.commands.grep(/^#{Regexp.escape(s)}/) }
-
-Readline.completion_append_character = " "
-Readline.completion_proc = comp
 
 # Entry point for the Command Line Interface (CLI).
 #
@@ -29,38 +23,22 @@ module Commando
 
   # Begin the prompt, get input, process loop.
   def self.start(output: $stdout)
-    Readline.output = output
     output.puts config.greeting
-    quit = false
+
+    io = IOHandler.new(output: output)
 
     loop do
-      line = Readline.readline(config.prompt, true)
-
-      if line.nil?
-        # When the user presses <CMD>+D, this comes through as nil. In that
-        # case we want to exit
-        output.puts
-        break
-      elsif line.strip == ''
-        # If the user just hit enter without typing a command, remove that line
-        # from history.
-        Readline::HISTORY.pop
-      else
-        # When the user enters a non-empty string, pass the line to the
-        # interpreter and handle the command.
-        #
-        # If the user enters an empty string (e.g. "" or "   "), we simply
-        # go back to the top of the loop to print out the prompt and wait
-        # for the next command.
-        interpreter = Interpreter.new(input: line, output: output)
-
-        begin
+      begin
+        if line = io.readline
+          # When the user enters a non-empty string, pass the line to the
+          # interpreter and handle the command.
+          interpreter = Interpreter.new(input: line, output: output)
           interpreter.interpret
-        rescue ValidationError => error
-          output.puts "Error: #{error}"
-        rescue QuitException
-          break
         end
+      rescue ValidationError => error
+        output.puts "Error: #{error}"
+      rescue QuitException
+        break
       end
     end
   end
