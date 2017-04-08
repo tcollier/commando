@@ -17,7 +17,7 @@ _A command line interface builder with Readline support_
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'commando'
+gem 'tcollier-commando'
 ```
 
 And then execute:
@@ -26,7 +26,7 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install commando
+    $ gem install tcollier-commando
 
 ## Configuration
 
