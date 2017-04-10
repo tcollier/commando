@@ -66,7 +66,7 @@ The `Action` role responds to `perform(args, output:)`, where
 * `output` [`IO`] - the IO instance that any messages should be written to.
 
 If the arguments are not formatted correctly (e.g. the user missed an argument),
-then method should raise a `Commando::ValidationError` with a descriptive message.
+then method should raise an `ArgumentError` with a descriptive message.
 
 #### Default actions
 

@@ -2,7 +2,6 @@ require_relative 'commando/config'
 require_relative 'commando/interpreter'
 require_relative 'commando/io_handler'
 require_relative 'commando/quit_exception'
-require_relative 'commando/validation_error'
 require_relative 'commando/version'
 
 # Entry point for the Command Line Interface (CLI).
@@ -35,7 +34,7 @@ module Commando
           # interpreter and handle the command.
           interpreter.interpret(line)
         end
-      rescue ValidationError => error
+      rescue ArgumentError => error
         output.puts "Error: #{error}"
       rescue QuitException
         break
