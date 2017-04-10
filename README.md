@@ -11,6 +11,7 @@ _A command line interface builder with Readline support_
 * `0.1.2` - Remove empty lines from history
 * `0.2.0` - Persist history across CLI sessions
 * `0.2.1` - Fix bug when history file doesn't exist
+* `1.0.0` - Use `ArgumentError` instead of custom error for bad args
 
 ## Installation
 
