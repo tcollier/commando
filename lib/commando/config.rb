@@ -13,16 +13,32 @@ module Commando
       'Welcome to the commando interface. Type "help" to list available commands'
 
     attr_accessor :history_file
-    
-    attr_writer :prompt, :greeting
+
+    attr_writer :prompt, :greeting, :output
 
     def initialize
       @mapping = {}
 
       # Register the default actions
-      register('help',    Commando::Action::Help,    'Print this message')
-      register('history', Commando::Action::History, 'Print the history of commands')
-      register('quit',    Commando::Action::Quit,    'Exit the program')
+      register(
+        'help',
+        Commando::Action::Help.new(config: self),
+        'Print this message'
+      )
+      register(
+        'history',
+        Commando::Action::History.new(config: self),
+        'Print the history of commands'
+      )
+      register(
+        'quit',
+        Commando::Action::Quit.new,
+        'Exit the program'
+      )
+    end
+
+    def output
+      @output || $stdout
     end
 
     def prompt

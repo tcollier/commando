@@ -5,7 +5,7 @@ module Commando
     describe '#perform' do
       it 'raises a QuitException' do
         expect do
-          Action::Quit.perform(args: [])
+          subject.perform(args: [])
         end.to raise_error(QuitException)
       end
     end

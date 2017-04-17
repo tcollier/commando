@@ -2,15 +2,17 @@ require_relative '../../lib/commando/interpreter'
 
 module Commando
   RSpec.describe Interpreter do
-    subject { Interpreter.new(output: output) }
-
-    let(:output) { instance_double(IO) }
-
-    before do
-      allow(Commando.config).to receive(:lookup).with('foo').and_return(action)
-    end
-
     describe '#interpret' do
+      subject { Interpreter.new(config: config) }
+
+      let(:config) { Config.new }
+      let(:output) { instance_double(IO) }
+
+      before do
+        config.output = output
+        allow(config).to receive(:lookup).with('foo').and_return(action)
+      end
+
       describe 'when no action is configured for the command' do
         let(:action) { nil }
 
@@ -26,8 +28,7 @@ module Commando
         let(:action) { double(:action) }
 
         it 'prints a useful message' do
-          expect(action).to receive(:perform)
-            .with(args: %w[bar baz], output: output)
+          expect(action).to receive(:perform).with(args: %w[bar baz])
             subject.interpret('foo bar baz')
         end
       end

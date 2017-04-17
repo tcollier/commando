@@ -14,14 +14,16 @@ module Commando
       end
     end
 
-    let(:output) { instance_double(IO) }
-
     describe '#perform' do
+      subject { Action::Help.new(config: config) }
+
+      let(:config) { Config.new }
+      let(:output) { instance_double(IO) }
+
       before do
-        Commando.configure do |config|
-          config.register('testz', TestAction2, 'test action 1')
-          config.register('testa', TestAction1, 'test action 2')
-        end
+        config.register('testz', TestAction2, 'test action 1')
+        config.register('testa', TestAction1, 'test action 2')
+        config.output = output
 
         allow(output).to receive(:puts)
       end
@@ -29,7 +31,7 @@ module Commando
       it 'puts an alphabetize list of commands to the output stream' do
         expect(output).to receive(:puts).with(/testa - test action 2/).ordered
         expect(output).to receive(:puts).with(/testz - test action 1/).ordered
-        Action::Help.perform(args: [], output: output)
+        subject.perform(args: [])
       end
     end
   end

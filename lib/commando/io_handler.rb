@@ -5,19 +5,19 @@ require_relative 'quit_exception'
 module Commando
   # Handle the prompt/input for the command line interface
   class IOHandler
-    def initialize(output:)
-      @output = output
+    def initialize(config:)
+      @config = config
 
       configure_readline
       load_history
     end
 
     def readline
-      line = Readline.readline(Commando.config.prompt, true)
+      line = Readline.readline(config.prompt, true)
       if line.nil?
         # When the user presses <CMD>+D, this comes through as nil. In that
         # case we want to exit
-        output.puts
+        config.output.puts
         raise QuitException
       elsif line.strip == ''
         # If the user just hit enter without typing a command, remove that line
@@ -32,12 +32,12 @@ module Commando
 
     private
 
-    attr_reader :output
+    attr_reader :config
 
     def configure_readline
-      Readline.output = output
+      Readline.output = config.output
       Readline.completion_proc =
-        proc { |s| Commando.config.commands.grep(/^#{Regexp.escape(s)}/) }
+        proc { |s| config.commands.grep(/^#{Regexp.escape(s)}/) }
     end
 
     def load_history
@@ -53,7 +53,7 @@ module Commando
     end
 
     def history_file
-      Commando.config.history_file
+      config.history_file
     end
   end
 

@@ -1,9 +1,9 @@
 module Commando
   # Interpret a single command from the user.
   class Interpreter
-    # @param output [IO] the stream any actions should write messages to.
-    def initialize(output: $stdout)
-      @output = output
+    # @param config [Config] the application configuration
+    def initialize(config:)
+      @config = config
     end
 
     # Performs the action (if valid) for the given input command line
@@ -12,18 +12,18 @@ module Commando
     def interpret(line)
       args = line.split(' ')
       command = args.shift
-      action = Commando.config.lookup(command)
+      action = config.lookup(command)
 
       if action.nil?
-        output.puts %Q(Unrecognized command: #{command}. Type "help" for a list of valid commands)
+        config.output.puts %Q(Unrecognized command: #{command}. Type "help" for a list of valid commands)
       else
-        action.perform(args: args, output: output)
+        action.perform(args: args)
       end
     end
 
     private
 
-    attr_reader :output
+    attr_reader :config
   end
 
   private_constant :Interpreter

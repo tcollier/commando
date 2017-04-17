@@ -3,8 +3,8 @@ require_relative '../quit_exception'
 module Commando
   module Action
     # Action to exit out of the CLI
-    module Quit
-      def self.perform(args:, output: $stdout)
+    class Quit
+      def perform(args:)
         raise QuitException
       end
     end
