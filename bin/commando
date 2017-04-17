@@ -2,4 +2,6 @@
 
 require_relative '../lib/commando'
 
-Commando.start
+Commando.start do |config|
+  config.prompt = 'changed> '
+end
